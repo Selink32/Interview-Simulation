@@ -1,6 +1,28 @@
-# AI Interview System
+# AI Interview Simulation Platform
 
-A full-stack mock interview platform that conducts real-time voice interviews, analyzes candidate performance (content, speech, and video), and produces structured feedback reports. All core AI inference runs locally (Ollama, faster-whisper); the database and optional email delivery may use external services depending on deployment.
+An adaptive mock-interview platform that runs real-time, multi-turn **voice interviews** with a **local LLM**. Questions are generated on the fly from the target company, position, interview category and the candidate's previous answers. After the interview, the platform analyses the candidate's performance (content, speech and video) and produces a structured feedback report. All core AI inference runs locally (Ollama, faster-whisper); the database and optional email delivery may use external services depending on deployment.
+
+Graduation project, BSc Computer Engineering, Yeditepe University (2026, grade BA), built by a two-person team: **Selin Kartal** and **Melis Halamoğlu**.
+
+## My contribution (Selin Kartal)
+
+I built the **interview simulation subsystem**:
+
+- **Real-time interview engine:** FastAPI WebSocket session that runs the multi-turn voice interview end to end.
+- **LLM question generation:** questions generated live with a local LLM (Ollama), using the company, the role, the interview category and the candidate's earlier answers. Includes the system-prompt rules that keep questions on topic.
+- **Company research:** before each interview, the LLM gathers context about the company, sector and position, which feeds question generation.
+- **Speech-to-text:** candidate answers transcribed locally with faster-whisper.
+- **Auth and scheduling:** JWT authentication with email verification, and the interview scheduling and preparation flow.
+- **Frontend:** React (Vite) pages, shared with my teammate.
+
+Post-interview scoring (answer content, fluency, video behaviour) was built by Melis Halamoğlu.
+
+## Results
+
+- **57/57 automated tests passing** (pytest): 14 unit, 16 integration, 19 security (incl. JWT tampering, SQL injection, XSS) and 8 performance (incl. rate limiting).
+- **9/9 manual end-to-end tests passing.**
+- **Average latency on local hardware:** 6.3 s from answer to next question; 5.1 s for speech-to-text.
+- Usability reviewed against Nielsen's 10 heuristics.
 
 ---
 
